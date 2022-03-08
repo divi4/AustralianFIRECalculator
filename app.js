@@ -2,8 +2,8 @@ const path = require("path")
 const express = require("express")
 const methodOverride = require('method-override')
 const app = express()
+const mongoose = require("mongoose")
 // This project doesn't need to store data
-// const mongoose = require("mongoose")
 // const session = require("express-session")
 // const MongoStore = require("connect-mongo") (session)
 

@@ -1,19 +1,9 @@
-// To get stuff from this dict:
-// {
-//   'current-age': '23',
-//   'retirement-age': '65',
-//   'annual-spend': '30000',
-//   'current-assets': '0',
-//   'monthly-contribution': '500',
-//   'growth-rate': '7.0',
-//   'interest-rate': '3.0'
-// }
-// req.body["current-age"]
+const Fire = require("../models/fire")
 
 module.exports = {
     getCalculator: async (req,res)=>{
         try{
-            res.render('index.ejs')
+            res.render('index.ejs', {fire:Fire})
         }catch(err){
             console.log(err)
         }
@@ -24,23 +14,33 @@ module.exports = {
             let currentAge = req.body["current-age"]
             let retirementAge = req.body["retirement-age"]
             let annualSpend = req.body["annual-spend"]
+
+            // Will add features that require these later
             let currentAssets = req.body["current-assets"]
             let monthlyContribution = req.body["monthly-contribution"]
+
             let adjustedGrowthRate = (req.body["growth-rate"] - req.body["interest-rate"])/100
             let interestRate = req.body["interest-rate"]/100
             let ageDifference = retirementAge - currentAge
 
             let fireNumber = annualSpend * 25
             let coastNumber = fireNumber * Math.pow((1 + adjustedGrowthRate), (-1 * ageDifference))
-            let finalValue = currentAssets * Math.pow((1 + adjustedGrowthRate), ageDifference)
+            // let finalValue = currentAssets * Math.pow((1 + adjustedGrowthRate), ageDifference)
 
-            console.log("Fire Number: " + fireNumber)
-            console.log("Coast Number: " + coastNumber)
-            console.log("Final Value: " + finalValue)
+            await Fire.create({
+                currentAge: currentAge,
+                retirementAge: retirementAge,
+                annualSpend: annualSpend,
+                currentAssets: currentAssets,
+                monthlyContribution: monthlyContribution,
+                adjustedGrowthRate: adjustedGrowthRate,
+                interestRate: interestRate,
+                ageDifference: ageDifference,
+                fireNumber: fireNumber,
+                coastNumber: coastNumber
+            });
 
-            console.log("Years to retirement: " + ageDifference)
-
-            res.render('index.ejs')
+            res.redirect("/")
         }catch(err){
             console.log(err)
         }
