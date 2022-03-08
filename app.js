@@ -3,21 +3,30 @@ const express = require("express")
 const methodOverride = require('method-override')
 const app = express()
 const mongoose = require("mongoose")
-// This project doesn't need to store data
-// const session = require("express-session")
-// const MongoStore = require("connect-mongo") (session)
+const session = require("express-session")
+const MongoStore = require("connect-mongo") (session)
 
-// const connectDB = require("./config/db")
+const connectDB = require("./config/db")
 const calculatorRoutes = require("./routes/calculator")
 
 require("dotenv").config({path: "./config/.env"})
 
-// connectDB()
+connectDB()
 
 app.set("view engine", "ejs")
 app.use(express.static("public"))
 app.use(express.urlencoded({ extended: true }))
 app.use(express.json())
+
+// Sessions
+app.use(
+  session({
+    secret: "nyan cat",
+    resave: false,
+    saveUninitialized: false,
+    store: new MongoStore({ mongooseConnection: mongoose.connection }),
+  })
+)
 
 app.use(methodOverride('_method'))
 
