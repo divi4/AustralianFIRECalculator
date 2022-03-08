@@ -1,0 +1,68 @@
+<!DOCTYPE html>
+<html lang="en" dir="ltr">
+  <head>
+    <meta charset="utf-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta http-equiv="Content-Security-Policy" content="default-src 'self'; style-src 'self';"/>
+    <title>FIRE Calculator AUS</title>
+    <link rel="stylesheet" href="css/styles.css">
+  </head>
+  <body>
+    <div class="calculator-box">
+      <div class="parameters-box">
+        <form class="calculator" action="/post" method="POST">
+          <div class="parameter">
+            <label for="current-age">Current age:</label>
+            <input type="number" name="current-age" value="23" placeholder="23" min="0">
+            <small></small>
+          </div>
+
+          <div class="parameter">
+            <label for="retirement-age">Retirement age:</label>
+            <input type="number" name="retirement-age" value="65" placeholder="65" min="1">
+            <small></small>
+          </div>
+
+          <div class="parameter">
+            <label for="annual-spend">Annual spending in retirement:</label>
+            <input type="number" name="annual-spend" value="30000" placeholder="30000" min="1">
+            <small></small>
+          </div>
+
+          <div class="parameter">
+            <label for="current-assets">Current invested assets:</label>
+            <input type="number" name="current-assets" value="0" placeholder="0" min="0">
+          </div>
+
+          <div class="parameter">
+            <label for="monthly-contribution">Monthly contribution:</label>
+            <input type="number" name="monthly-contribution" value="500" placeholder="500" min="0">
+          </div>
+
+          <!--Replace the growth and interest rate with range input in future-->
+          <!--Current value of the slider will be shown to the user-->
+          <div class="parameter">
+            <label for="growth-rate">Investment growth rate:</label>
+            <input type="number" name="growth-rate" value="7.0" placeholder="7.0" min="-100" max="100">
+          </div>
+
+          <div class="parameter">
+            <label for="interest-rate">Interest rate:</label>
+            <input type="number" name="interest-rate" value="3.0" placeholder="3.0" min="-100" max="100">
+          </div>
+
+          <!--Replace Submit button with "Years to FIRE" when convert to React-->
+          <input class="submit" type="submit" value="Submit">
+        </form>
+      </div>
+      <div class="graph-box">
+        <img src="graph.png" alt="placeholder">
+      </div>
+    </div>
+    <p class="fire-age"></p>
+
+    <script src="js/main.js"></script>
+    <noscript>Sorry this website needs Javascript to run, please turn it on and refresh the page</noscript>
+  </body>
+</html>
