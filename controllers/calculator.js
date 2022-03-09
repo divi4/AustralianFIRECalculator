@@ -3,7 +3,8 @@ const Fire = require("../models/fire")
 module.exports = {
     getCalculator: async (req,res)=>{
         try{
-            res.render('index.ejs', {fire:Fire})
+            let x = Fire.findOne()
+            res.render('index.ejs', {fire:x})
         }catch(err){
             console.log(err)
         }
