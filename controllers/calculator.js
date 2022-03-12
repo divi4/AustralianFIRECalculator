@@ -21,15 +21,16 @@ module.exports = {
             // These values are being implicitly converted from a string to a number
             let currentAge = req.body["current-age"]
             let retirementAge = req.body["retirement-age"]
-            let annualSpend = req.body["annual-spend"]
+            let ageDifference = retirementAge - currentAge
 
+            let annualSpend = req.body["annual-spend"]
             // Will add features that require these later
             let currentAssets = req.body["current-assets"]
             let monthlyContribution = req.body["monthly-contribution"]
 
-            let adjustedGrowthRate = (req.body["growth-rate"] - req.body["interest-rate"])/100
-            let interestRate = req.body["interest-rate"]/100
-            let ageDifference = retirementAge - currentAge
+            let growthRate = req.body["growth-rate"]
+            let interestRate = req.body["interest-rate"]
+            let adjustedGrowthRate = (growthRate - interestRate)/100
 
             let fireNumber = annualSpend * 25
             let coastNumber = fireNumber * Math.pow((1 + adjustedGrowthRate), (-1 * ageDifference))
@@ -41,12 +42,13 @@ module.exports = {
             let doc = await Fire.create({
                 currentAge: currentAge,
                 retirementAge: retirementAge,
+                ageDifference: ageDifference,
                 annualSpend: annualSpend,
                 currentAssets: currentAssets,
                 monthlyContribution: monthlyContribution,
-                adjustedGrowthRate: adjustedGrowthRate,
+                growthRate: growthRate,
                 interestRate: interestRate,
-                ageDifference: ageDifference,
+                adjustedGrowthRate: adjustedGrowthRate,
                 fireNumber: fireNumber,
                 coastNumber: coastNumber
             });

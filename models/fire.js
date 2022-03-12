@@ -9,6 +9,10 @@ const FireSchema = new mongoose.Schema({
     type: String,
     required: true,
   },
+  ageDifference: {
+    type: String,
+    required: true,
+  },
   annualSpend: {
     type: String,
     required: true,
@@ -21,7 +25,7 @@ const FireSchema = new mongoose.Schema({
     type: String,
     required: true,
   },
-  adjustedGrowthRate: {
+  growthRate: {
     type: String,
     required: true,
   },
@@ -29,7 +33,7 @@ const FireSchema = new mongoose.Schema({
     type: String,
     required: true,
   },
-  ageDifference: {
+  adjustedGrowthRate: {
     type: String,
     required: true,
   },
