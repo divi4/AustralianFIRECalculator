@@ -57,9 +57,23 @@
         </form>
       </div>
       <div class="graph-box">
-        <img src="graph.png" alt="placeholder">
+
       </div>
     </div>
+
+    <p>Your <%= docObject.ageDifference %> years from retirement</p>
+    <p>
+      At a real growth rate (growth - inflation) of <%= docObject.adjustedGrowthRate * 100 %>%
+      and a planned annual spendings of <%= docObject.annualSpend %> this makes your
+      FIRE number: <%= docObject.fireNumber %>
+    </p>
+    <p>
+      The amount of money you need in your Super today to reach <%= docObject.fireNumber %>
+      by age <%= docObject.retirementAge %>, is:
+    </p>
+    <p><%= docObject.coastNumber %></p>
+
+    <p>Monthly contributions: <%= docObject.monthlyContribution %></p>
     <script src="js/main.js"></script>
     <noscript>Sorry this website needs Javascript to run, please turn it on and refresh the page</noscript>
   </body>

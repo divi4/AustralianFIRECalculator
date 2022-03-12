@@ -9,20 +9,15 @@ module.exports = {
         }
     },
     getResults: async (req,res)=>{
-      // nothing in req.params
-      // Once I can get the object id I can pass data to the ejs
         try{
-          let x = await Fire.findById(req.params.id).lean()
-          console.log(x)
-          // res.render("index.ejs", {currentAge: currentAge})
+          let docObject = await Fire.findById(req.params.id).lean()
+          res.render("results.ejs", {docObject: docObject})
         }catch(err){
             console.log(err)
         }
     },
-    postCalculator: async (req,res, id)=>{
+    postCalculator: async (req,res)=>{
         try{
-            console.log(id)
-
             // These values are being implicitly converted from a string to a number
             let currentAge = req.body["current-age"]
             let retirementAge = req.body["retirement-age"]
@@ -40,7 +35,10 @@ module.exports = {
             let coastNumber = fireNumber * Math.pow((1 + adjustedGrowthRate), (-1 * ageDifference))
             // let finalValue = currentAssets * Math.pow((1 + adjustedGrowthRate), ageDifference)
 
-            await Fire.create({
+            // To return objectID, need to assign the newly created document
+            // to a variable first, else we don't actually know which document
+            // of the Fire Model to return
+            let doc = await Fire.create({
                 currentAge: currentAge,
                 retirementAge: retirementAge,
                 annualSpend: annualSpend,
@@ -52,7 +50,7 @@ module.exports = {
                 fireNumber: fireNumber,
                 coastNumber: coastNumber
             });
-            res.redirect(`/results/${req.params.id}`)
+            res.redirect(`/results/${doc._id}`)
         }catch(err){
             console.log(err)
         }

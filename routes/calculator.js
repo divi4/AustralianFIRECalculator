@@ -4,9 +4,6 @@ const calculatorController = require('../controllers/calculator')
 
 router.get('/', calculatorController.getCalculator)
 router.get('/results/:id', calculatorController.getResults)
-//router.post('/post', calculatorController.postCalculator)
-router.post('/post', (req, res) => {
-  calculatorController.postCalculator(req.params.id)
-})
+router.post('/post', calculatorController.postCalculator)
 
 module.exports = router
