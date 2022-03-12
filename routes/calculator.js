@@ -3,6 +3,10 @@ const router = express.Router()
 const calculatorController = require('../controllers/calculator')
 
 router.get('/', calculatorController.getCalculator)
-router.post('/post', calculatorController.postCalculator)
+router.get('/results/:id', calculatorController.getResults)
+//router.post('/post', calculatorController.postCalculator)
+router.post('/post', (req, res) => {
+  calculatorController.postCalculator(req.params.id)
+})
 
 module.exports = router

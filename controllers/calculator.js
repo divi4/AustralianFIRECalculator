@@ -3,14 +3,26 @@ const Fire = require("../models/fire")
 module.exports = {
     getCalculator: async (req,res)=>{
         try{
-            let x = Fire.findOne()
-            res.render('index.ejs', {fire:x})
+          res.render('index.ejs')
         }catch(err){
             console.log(err)
         }
     },
-    postCalculator: async (req,res)=>{
+    getResults: async (req,res)=>{
+      // nothing in req.params
+      // Once I can get the object id I can pass data to the ejs
         try{
+          let x = await Fire.findById(req.params.id).lean()
+          console.log(x)
+          // res.render("index.ejs", {currentAge: currentAge})
+        }catch(err){
+            console.log(err)
+        }
+    },
+    postCalculator: async (req,res, id)=>{
+        try{
+            console.log(id)
+
             // These values are being implicitly converted from a string to a number
             let currentAge = req.body["current-age"]
             let retirementAge = req.body["retirement-age"]
@@ -40,10 +52,9 @@ module.exports = {
                 fireNumber: fireNumber,
                 coastNumber: coastNumber
             });
-
-            res.redirect("/")
+            res.redirect(`/results/${req.params.id}`)
         }catch(err){
             console.log(err)
         }
-    },
+    }
   }

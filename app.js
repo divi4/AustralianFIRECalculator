@@ -18,6 +18,8 @@ app.use(express.static("public"))
 app.use(express.urlencoded({ extended: true }))
 app.use(express.json())
 
+// app.use(require('cors')());
+
 // Sessions
 app.use(
   session({
@@ -28,11 +30,13 @@ app.use(
   })
 )
 
-app.use(methodOverride('_method'))
+// app.use(methodOverride('_method'))
 
+// The path parameter just makes the code clean by separating this specific
+// code in a separate file
 app.use("/", calculatorRoutes)
-// app.use("/post", calculatorRoutes)
+
 
 app.listen(process.env.PORT, () => {
-  console.log(`Server is now running on PORT: ${process.env.PORT}`)
+  console.log(`Server is now running on localhost:${process.env.PORT}`)
 })
