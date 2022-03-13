@@ -33,7 +33,8 @@ module.exports = {
             let adjustedGrowthRate = roundOff((growthRate - interestRate), 1)
 
             let fireNumber = annualSpend * 25
-            let coastNumber = roundOff(fireNumber * Math.pow((1 + ((growthRate - interestRate)/100)), (-1 * ageDifference)) - currentSuper, 2)
+            let coastNumber = roundOff(fireNumber * Math.pow((1 + ((growthRate - interestRate)/100)), (-1 * ageDifference)), 2)
+            let actualCoastNumber = roundOff(coastNumber - currentSuper, 2)
 
             // let finalValue = currentSuper * Math.pow((1 + adjustedGrowthRate), ageDifference)
 
@@ -51,7 +52,8 @@ module.exports = {
                 interestRate: interestRate,
                 adjustedGrowthRate: adjustedGrowthRate,
                 fireNumber: fireNumber,
-                coastNumber: coastNumber
+                coastNumber: coastNumber,
+                actualCoastNumber: actualCoastNumber
             });
             res.redirect(`/results/${doc._id}`)
         }catch(err){

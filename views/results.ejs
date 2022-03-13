@@ -70,10 +70,16 @@
       FIRE number: <%= docObject.fireNumber %>
     </p>
     <p>
-      The amount of money you need in your Super today to reach <%= docObject.fireNumber %>
+      The amount of money you need to put into your Super today to reach <%= docObject.fireNumber %>
       by age <%= docObject.retirementAge %>, is:
     </p>
     <p><%= docObject.coastNumber %></p>
+    <p>
+      With a Super that's currently at
+      <%= docObject.currentSuper %>, you've got to put in
+      <%= docObject.actualCoastNumber %> more to reach your
+      FIRE number by retirement
+    </p>
 
     <p>Monthly contributions: <%= docObject.monthlyContribution %></p>
 

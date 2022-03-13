@@ -44,6 +44,10 @@ const FireSchema = new mongoose.Schema({
   coastNumber: {
     type: String,
     required: true,
+  },
+  actualCoastNumber: {
+    type: String,
+    required: true,
   }
 })
 
