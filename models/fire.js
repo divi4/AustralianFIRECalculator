@@ -17,7 +17,7 @@ const FireSchema = new mongoose.Schema({
     type: String,
     required: true,
   },
-  currentAssets: {
+  currentSuper: {
     type: String,
     required: true,
   },

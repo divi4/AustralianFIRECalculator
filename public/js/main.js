@@ -13,7 +13,7 @@ form.addEventListener("submit", function(e) {
   let currentAgeValid = hasValue(form.elements["current-age"], CURRENT_AGE_REQUIRED);
   let retirementAgeValid = hasValue(form.elements["retirement-age"], RETIREMENT_AGE_REQUIRED);
   let annualSpendValid = hasValue(form.elements["annual-spend"], ANNUAL_SPEND_REQUIRED);
-  checkNumber(form.elements["current-assets"]);
+  checkNumber(form.elements["current-super"]);
   checkNumber(form.elements["monthly-contribution"]);
   checkNumber(form.elements["growth-rate"]);
   checkNumber(form.elements["interest-rate"]);

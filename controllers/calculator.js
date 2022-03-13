@@ -25,16 +25,17 @@ module.exports = {
 
             let annualSpend = req.body["annual-spend"]
             // Will add features that require these later
-            let currentAssets = req.body["current-assets"]
+            let currentSuper = req.body["current-super"]
             let monthlyContribution = req.body["monthly-contribution"]
 
             let growthRate = req.body["growth-rate"]
             let interestRate = req.body["interest-rate"]
-            let adjustedGrowthRate = (growthRate - interestRate)/100
+            let adjustedGrowthRate = roundOff((growthRate - interestRate), 1)
 
             let fireNumber = annualSpend * 25
-            let coastNumber = fireNumber * Math.pow((1 + adjustedGrowthRate), (-1 * ageDifference))
-            // let finalValue = currentAssets * Math.pow((1 + adjustedGrowthRate), ageDifference)
+            let coastNumber = roundOff(fireNumber * Math.pow((1 + ((growthRate - interestRate)/100)), (-1 * ageDifference)) - currentSuper, 2)
+
+            // let finalValue = currentSuper * Math.pow((1 + adjustedGrowthRate), ageDifference)
 
             // To return objectID, need to assign the newly created document
             // to a variable first, else we don't actually know which document
@@ -44,7 +45,7 @@ module.exports = {
                 retirementAge: retirementAge,
                 ageDifference: ageDifference,
                 annualSpend: annualSpend,
-                currentAssets: currentAssets,
+                currentSuper: currentSuper,
                 monthlyContribution: monthlyContribution,
                 growthRate: growthRate,
                 interestRate: interestRate,
@@ -58,3 +59,8 @@ module.exports = {
         }
     }
   }
+
+function roundOff(num, places) {
+  const x = Math.pow(10, places)
+  return Math.round(num * x) / x
+}
