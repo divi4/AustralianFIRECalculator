@@ -4,7 +4,8 @@
     <meta charset="utf-8">
     <meta http-equiv="X-UA-Compatible" content="IE=edge">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <meta http-equiv="Content-Security-Policy" content="default-src 'self'; style-src 'self';"/>
+    <meta http-equiv="Cache-Control" content="no-cache"/>
+    <meta http-equiv="Content-Security-Policy" content="default-src 'self'; style-src 'self'; script-src 'self' cdnjs.cloudflare.com;"/>
     <title>FIRE Calculator AUS</title>
     <link rel="stylesheet" type="text/css" href="/css/styles.css">
   </head>
@@ -57,9 +58,11 @@
         </form>
       </div>
       <div class="graph-box">
-        <img src="graph.png" alt="placeholder">
+        <canvas id="myChart" width="400" height="400"></canvas>
       </div>
     </div>
+
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/Chart.js/3.7.1/chart.js" integrity="sha512-Lii3WMtgA0C0qmmkdCpsG0Gjr6M0ajRyQRQSbTF6BsrVh/nhZdHpVZ76iMIPvQwz1eoXC3DmAg9K51qT5/dEVg==" crossorigin="anonymous" referrerpolicy="no-referrer"></script>
     <script src="js/main.js"></script>
     <noscript>Sorry this website needs Javascript to run, please turn it on and refresh the page</noscript>
   </body>
