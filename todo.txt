@@ -1,7 +1,0 @@
-Set up the server side,
-collect the frontend info
-create the calculations
-return the value to frontend
-
-set up the graph
-give the value to the graph as well 

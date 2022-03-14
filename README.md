@@ -12,7 +12,9 @@ A FIRE calculator adjusted to take into account Australian superannuation
 -Learnt how to set [CSP headers](https://content-security-policy.com/examples/)  
 
 ## Things to do:  
--Dynamically give data to chart parameters to plot a graph that reflects the user's finances  
+-Be able to remove all data on graph before updating to new parameters
+-Provide default values to the graph to populate the graph when users first enter the page
+-Made site mobile-first, responsive  
 -Bring in my randomise colour code and use it to assign a colour to each plot point  
 -Check if the session is the same and update users data on server if so instead of creating a new document  
 -Make a string parser for the numbers inputted so they show up in the results as 30,000 instead of 30000  
