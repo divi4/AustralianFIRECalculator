@@ -1,5 +1,5 @@
 # AustralianFIRECalculator
-![Finance calculator with a graph of a persons net worth](calculator.png)
+![Finance calculator with a graph of a persons net worth](https://i.ibb.co/wRmhgLd/calculator.png)
 A FIRE calculator adjusted to take into account Australian superannuation
 
 ## Things learnt:  
