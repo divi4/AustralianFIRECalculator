@@ -11,10 +11,12 @@ A FIRE calculator adjusted to take into account Australian superannuation
 -How to use the optional attributes of the html input element  
 -Learnt difference between CommonJS and RequireJS  
 -Learnt how to set [CSP headers](https://content-security-policy.com/examples/)  
+-Annuity, the difference in annuity due and immediate and the related formulas  
 
 ## Things to do:   
--Take monthly contributions into account in calculations and show on graph  
+-Fine-tune annuity calculations  
 -Prettify the graph  
+-Add tooltip to line for FIRE number
 -Make site mobile-first, responsive  
 -Bring in my randomise colour code and use it to assign a colour to each plot point  
 -Check if the session is the same and update users data on server if so instead of creating a new document  

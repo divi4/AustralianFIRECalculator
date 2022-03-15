@@ -152,15 +152,24 @@ function createGraphData(docObject) {
   }
 
   for (let i = 0; i < docObject.ageDifference + 1; i++) {
-    if (i === 0) {
+    // ------------- This if-else statement is not needed I think ------------------
       // Put in logic here to add currentSuper and add one year's worth of
       // monthlyContribution every year after the first
       // If currentSuper is 0, first year is 0, and year's worth of monthly
       // contribution will make 2nd year + real growth
-      plots[0] = Number(docObject.currentSuper)
-    } else {
-      plots[i] = Number(docObject.currentSuper) * Math.pow((1 + docObject.adjustedGrowthRate/100), i)
-   }
+      // Would add monthlyContribution*12 to the total AFTER this formula resolves
+      if (i === 0) {
+        plots[0] = (Number(docObject.currentSuper))
+      } else {
+        // Principal is correct
+        let principal = ((Number(docObject.currentSuper)) * Math.pow((1 + docObject.adjustedGrowthRate/100), i))
+        // Annuity is within 'margin of error'
+        // Annuity is currently calculated as annuity due (made at the start of each contribution period)
+        // https://math.stackexchange.com/questions/1698578/compound-interest-formula-adding-annual-contributions
+        // https://www.educba.com/annuity-due-formula/
+        let annuity = (docObject.monthlyContribution * 12) * (Math.pow((1 + docObject.adjustedGrowthRate/100), i) - 1) * (1 + (docObject.adjustedGrowthRate/100))
+        plots[i] = principal + annuity
+      }
   }
   return [ages, plots]
 }
