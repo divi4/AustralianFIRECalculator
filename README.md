@@ -1,4 +1,4 @@
-# AustralianFIRECalculator  
+# Australian FIRE Calculator  
 A FIRE calculator adjusted to take into account Australian superannuation  
 ![Finance calculator with a graph of a persons net worth](https://i.ibb.co/wRmhgLd/calculator.png)
 
@@ -14,19 +14,15 @@ A FIRE calculator adjusted to take into account Australian superannuation
 -Annuity, the difference in annuity due and immediate and the related formulas  
 
 ## Things to do:   
--Fine-tune annuity calculations  
--Prettify the graph  
 -Add tooltip to line for FIRE number  
--Make site mobile-first, responsive  
--Bring in my randomise colour code and use it to assign a colour to each plot point  
--Check if the session is the same and update users data on server if so instead of creating a new document  
--Make a string parser for the numbers inputted so they show up in the results as 30,000 instead of 30000  
--Add logic to alter text if user has more money in Super than their FIRE number   
--Optimise index.ejs and results.ejs back into one file again   
+-Fine-tune annuity calculations, margin error possibly due to in part floating point errors  
+-Make the site mobile-first, responsive  
 -Add calculations to determine pre-Super FIRE number  
--Explain how the FIRE and CoastFIRE number is created  
--Create a proper frontend  
 -Add option for user to compare two different strategies and view them both on the graph  
 -Add option for users to download their data as a spreadsheet and/or plain text  
--Add Admin login, where old server data can be easily deleted   
+-Prettify the graph  
+-Make a string parser for the numbers inputted so they show up in the results as 30,000 instead of 30000  
+-Add logic to alter text if user has more money in Super than their FIRE number  
+-Create a proper frontend  
+-Explain how the FIRE and CoastFIRE number is created   
 -Refactor code  
