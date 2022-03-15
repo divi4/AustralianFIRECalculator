@@ -15,7 +15,7 @@
         <form class="calculator" action="/post" method="POST">
           <div class="parameter">
             <label for="current-age">Current age:</label>
-            <input type="number" name="current-age" value="23" placeholder="23" min="0">
+            <input type="number" name="current-age" value="30" placeholder="30" min="0">
             <small></small>
           </div>
 
@@ -33,19 +33,19 @@
 
           <div class="parameter">
             <label for="current-super">Current Super value:</label>
-            <input type="number" name="current-super" value="3000" placeholder="0" min="0">
+            <input type="number" name="current-super" value="40000" placeholder="0" min="0">
           </div>
 
           <div class="parameter">
             <label for="monthly-contribution">Monthly contribution:</label>
-            <input type="number" name="monthly-contribution" value="500" placeholder="500" min="0">
+            <input type="number" name="monthly-contribution" value="0" placeholder="500" min="0">
           </div>
 
           <!--Replace the growth and interest rate with range input in future-->
           <!--Current value of the slider will be shown to the user-->
           <div class="parameter">
             <label for="growth-rate">Investment growth rate:</label>
-            <input type="number" name="growth-rate" value="7.0" placeholder="7.0" min="-100" max="100" step="0.5">
+            <input type="number" name="growth-rate" value="10.0" placeholder="10.0" min="-100" max="100" step="0.5">
           </div>
 
           <div class="parameter">
@@ -58,7 +58,7 @@
         </form>
       </div>
       <div class="graph-box">
-        <canvas id="myChart" width="650" height="650"></canvas>
+        <canvas id="myChart" width="650" height="600"></canvas>
       </div>
     </div>
 
