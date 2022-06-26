@@ -19,6 +19,8 @@ const myChart = new Chart(ctx, {
                 248554.70518706794,265953.5345501627,284570.28196867404,
                 304490.2017064812,325804.515825935,348610.83193375036,
                 373013.5901691129,399124.5414809508,427063.2593846174],
+          pointStyle: "rectRounded",
+          pointHitRadius: 3,
           backgroundColor: "rgba(17, 140, 79, 0.2)",
           fill: "origin",
           borderWidth: 1
@@ -30,7 +32,8 @@ const myChart = new Chart(ctx, {
                 750000,750000,750000,750000,750000,750000,750000,750000,750000,
                 750000,750000,750000,750000,750000,750000,750000,750000,750000],
           backgroundColor: "rgba(252, 9, 5, 0.6)",
-          pointHitRadius: 0,
+          pointStyle: "dash",
+          pointHitRadius: 5,
           pointRadius: 0,
           borderWidth: 3,
           borderColor: "rgba(252, 9, 5, 0.6)"
@@ -47,6 +50,33 @@ const myChart = new Chart(ctx, {
             beginAtZero: true,
           }
         },
+        interaction: {
+          mode: 'point'
+        },
+        plugins: {
+          tooltip: {
+              callbacks: {
+                  title: function(title) {
+                    if (title[0].dataset.label === "Fire Number") {
+                      return null
+                    } else {
+                      return "Age " + title[0].label
+                    }
+                  },
+                  label: function(context) {
+                      let label = context.dataset.label || '';
+
+                      if (label) {
+                          label += ': ';
+                      }
+                      if (context.parsed.y !== null) {
+                          label += new Intl.NumberFormat("en-AU", { style: "currency", currency: "AUD" }).format(context.parsed.y);
+                      }
+                      return label;
+                  }
+              }
+          }
+      }
       }
     });
 
@@ -165,8 +195,6 @@ function createGraphData(docObject) {
         let principal = ((Number(docObject.currentSuper)) * Math.pow((1 + docObject.adjustedGrowthRate/100), i))
         // Annuity is within 'margin of error'
         // Annuity is currently calculated as annuity due (made at the start of each contribution period)
-        // https://math.stackexchange.com/questions/1698578/compound-interest-formula-adding-annual-contributions
-        // https://www.educba.com/annuity-due-formula/
         let annuity = (docObject.monthlyContribution * 12) * (Math.pow((1 + docObject.adjustedGrowthRate/100), i) - 1) * (1 + (docObject.adjustedGrowthRate/100))
         plots[i] = principal + annuity
       }
