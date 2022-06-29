@@ -37,6 +37,16 @@ const myChart = new Chart(ctx, {
           pointRadius: 0,
           borderWidth: 3,
           borderColor: 'rgba(252, 9, 5, 0.6)'
+        },
+        {
+          label: 'Pre-Super Fire Number',
+          data: [],
+          backgroundColor: 'rgba(152, 9, 5, 0.6)',
+          pointStyle: 'dash',
+          pointHitRadius: 5,
+          pointRadius: 0,
+          borderWidth: 3,
+          borderColor: 'rgba(152, 9, 5, 0.6)'
         }]
     },
     options: {
@@ -56,12 +66,14 @@ const myChart = new Chart(ctx, {
         plugins: {
           tooltip: {
               callbacks: {
-                  title: function(title) {
-                    if (title[0].dataset.label === 'Fire Number') {
+                title: function(title) {
+                  if (title[0].dataset.label === 'Fire Number') {
+                    return null
+                  } else if (title[0].dataset.label === 'Pre-Super Fire Number') {
                       return null
-                    } else {
-                      return 'Age ' + title[0].label
-                    }
+                  } else {
+                    return 'Age ' + title[0].label
+                  }
                   },
                   label: function(context) {
                       let label = context.dataset.label || '';
@@ -105,8 +117,8 @@ form.addEventListener('submit', function(e) {
   if (currentAgeValid && retirementAgeValid && annualSpendValid) {
     let docObject = getData()
     updateText(docObject)
-    let [ages, plots] = createGraphData(docObject)
-    updateGraphData(myChart, ages, plots, docObject.fireNumber)
+    let [ages, plots, preSuperPlots] = createGraphData(docObject)
+    updateGraphData(myChart, ages, plots, preSuperPlots, docObject.fireNumber)
   }
 })
 
@@ -185,9 +197,15 @@ function getData() {
 function createGraphData(docObject) {
   let ages = []
   let plots = [docObject.currentSuper, docObject.fireNumber]
+  let preSuperPlots = [docObject.preFireNumber]
 
   for (let i = 0; i < docObject.ageDifference + 1; i++) {
       ages[i] = i + Number(docObject.currentAge)
+  }
+
+  // Right now only creates plots for the pre-super Fire number
+  for (let i = 0; i < docObject.ageDifference + 1; i++) {
+    preSuperPlots[i] = Number(docObject.preFireNumber)
   }
 
   for (let i = 0; i < docObject.ageDifference + 1; i++) {
@@ -208,23 +226,24 @@ function createGraphData(docObject) {
         plots[i] = principal + annuity
       }
   }
-  return [ages, plots]
+  return [ages, plots, preSuperPlots]
 }
 
 
-function updateGraphData(myChart, ages, plots, fireNumber) {
+function updateGraphData(myChart, ages, plots, preSuperPlots, fireNumber) {
   removeGraphData(myChart)
-  addGraphData(myChart, ages, plots, fireNumber)
+  addGraphData(myChart, ages, plots, preSuperPlots, fireNumber)
 }
 
 
-function addGraphData(chart, ages, plots, fireNumber) {
+function addGraphData(chart, ages, plots, preSuperPlots, fireNumber) {
     ages.forEach((age) => {
       chart.data.labels.push(age)
     });
     plots.forEach((plot) => {
         chart.data.datasets[0].data.push(plot)
         chart.data.datasets[1].data.push(fireNumber)
+        chart.data.datasets[2].data.push(preSuperPlots)
     });
 
     chart.update();
@@ -235,6 +254,7 @@ function removeGraphData(chart) {
     chart.data.labels = []
     chart.data.datasets[0].data = []
     chart.data.datasets[1].data = []
+    chart.data.datasets[2].data = []
     chart.update();
 }
 

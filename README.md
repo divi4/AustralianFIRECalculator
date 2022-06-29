@@ -18,12 +18,16 @@ A FIRE calculator adjusted to take into account Australian superannuation
 
 ## Things to do:   
 -Add calculations to determine pre-Super FIRE number  
+-Add pre-Super data to graph  
+-Take into account Employer's Super Guarantee, ask how much employers contribute to their Super on a monthly/quarterly basis  
+-Take into account Maximum super contributions base  
 -Update variables in HTML to camelCase to be consistent with JavaScript file  
 -Add option for user to compare two different strategies and view them both on the graph  
 -Allow user to change interest and growth rate of each year individually, as well as provide historical datasets  
 -Make the site mobile-first, responsive  
 -Prettify the graph  
--Alter default value of current Super to be $75,000, update default graph to reflect this
+-Alter default value of current Super to be $75,000, update default graph to reflect this  
+-Add advanced options that allow users to adjust their ordinary hours worked/amount of Super earn a quarter etc.  
 -Add option for users to download their data as a spreadsheet and/or plain text  
 -Fine-tune annuity calculations, margin error possibly due to in part floating point errors  
 -Create a proper frontend  
