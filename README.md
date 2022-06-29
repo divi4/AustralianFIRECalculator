@@ -18,16 +18,18 @@ A FIRE calculator adjusted to take into account Australian superannuation
 
 ## Things to do:   
 -Add calculations to determine pre-Super FIRE number  
+-Update variables in HTML to camelCase to be consistent with JavaScript file  
 -Add option for user to compare two different strategies and view them both on the graph  
--Add logic to create lower limit to retirement age to equal current preservation age  
+-Allow user to change interest and growth rate of each year individually, as well as provide historical datasets  
 -Make the site mobile-first, responsive  
 -Prettify the graph  
+-Alter default value of current Super to be $75,000, update default graph to reflect this
 -Add option for users to download their data as a spreadsheet and/or plain text  
 -Fine-tune annuity calculations, margin error possibly due to in part floating point errors  
 -Create a proper frontend  
 -Explain how the FIRE and CoastFIRE number is created  
 -Add logic to alter text if user has more money in Super than their FIRE number  
--Add conditional that if both lines within certain range of each other, change interaction mode to index mode  
+-Add conditional that if both lines within $25,000~ range of each other, change interaction mode to index mode  
 -For ease of useability, scale down pointHitRadius as retirementAge is increased beyond 75, scale it up as it is reduced  
 -Add logic for option to determine a persons preservation age if they were born before 1 July 1964 based on their date of birth  
 -Refactor code  
