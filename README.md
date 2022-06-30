@@ -15,7 +15,8 @@ A FIRE calculator adjusted to take into account Australian superannuation
 -[Annuity](https://www.siyavula.com/read/maths/grade-12/finance/03-finance-02), the difference between [annuity due and immediate](https://math.stackexchange.com/questions/1698578/compound-interest-formula-adding-annual-contributions) and the related formulas (see previous hyperlink)  
 -Learnt the formula needed to find [future value of a annuity after a intial lump sum payment](https://www.calculatorsoup.com/calculators/financial/future-value-calculator.php#formulas)  
 -Found out how to define the correct locale data when using Intl object using [Unicode Technical Standard #35](https://unicode.org/reports/tr35/) as a reference  
--Give different lines on the same graph different tooltips  
+-Give different plotlines on the same graph different tooltips  
+-How to organise and plan a project  
 
 ## Things to do:   
 -Add calculations to determine pre-Super FIRE number  

@@ -26,8 +26,8 @@
           </div>
 
           <div class="parameter">
-            <label for="annual-spend">Annual spending in retirement:</label>
-            <input type="number" name="annual-spend" value="30000" placeholder="30000" min="1">
+            <label for="superAnnualSpend">Annual spending in retirement:</label>
+            <input type="number" name="superAnnualSpend" value="30000" placeholder="30000" min="1">
             <small></small>
           </div>
 
@@ -56,28 +56,31 @@
           <!-- Alter default values to none when live -->
           <h2>Pre-Super retirement</h2>
 
-          <div class="parameter">
-            <label for="preSuperRetirementAge">Retirement age:</label>
-            <!-- Need min to be currentAge and max to be retirementAge -->
-            <input type="number" name="preSuperRetirementAge" value="35" placeholder="35">
-            <small></small>
-          </div>
-
-
-          <div class="parameter">
-            <label for="preSuperAnnualSpend">Annual spending in Pre-Super retirement:</label>
-            <input type="number" name="preSuperAnnualSpend" value="60000" placeholder="60000" min="1">
-            <small></small>
-          </div>
-
-          <!-- Should I allow the user to adjust the draw rate? -->
-          <!-- What if they're 1 year till retirement and they put a draw rate of 50%? -->
-          <!-- Put in logic to auto-adjust draw rate if doesn't make sense or -->
-          <!-- make it so any left over is added on after to the Super? -->
           <!-- <div class="parameter">
-            <label for="draw-rate">Draw rate:</label>
-            <input type="number" name="draw-rate" value="4.0" placeholder="4.0" min="0" max="100" step="0.5">
+            <label for="fireRetirementAge">Retirement age:</label>
+            Need min to be currentAge and max to be retirementAge
+            <input type="number" name="fireRetirementAge" value="35" placeholder="35">
+            <small></small>
           </div> -->
+
+
+          <div class="parameter">
+            <label for="fireAnnualSpend">Annual spending in Pre-Super retirement:</label>
+            <input type="number" name="fireAnnualSpend" value="60000" placeholder="60000" min="0">
+            <small></small>
+          </div>
+
+          <div class="parameter">
+            <label for="currentNetworth">Current Networth, excluding Super and equity in house:</label>
+            <input type="number" name="currentNetworth" value="50000" placeholder="50000" min="0">
+            <small></small>
+          </div>
+
+          <div class="parameter">
+            <label for="yearlyDeposit">Amount of yearly post-tax money will save:</label>
+            <input type="number" name="yearlyDeposit" value="30000" placeholder="30000" min="1">
+            <small></small>
+          </div>
 
           <!--Replace Submit button with "Years to FIRE" when convert to React-->
           <input class="submit" type="submit" value="Submit">
@@ -98,8 +101,6 @@
     <!-- Pre-Super numbers -->
     <h3>Pre-Super numbers</h3>
     <p class="g"></p>
-    <p class="h"></p>
-    <!-- <p class="i">At a draw rate of: </p> -->
 
     <script src="https://cdnjs.cloudflare.com/ajax/libs/Chart.js/3.7.1/chart.js" integrity="sha512-Lii3WMtgA0C0qmmkdCpsG0Gjr6M0ajRyQRQSbTF6BsrVh/nhZdHpVZ76iMIPvQwz1eoXC3DmAg9K51qT5/dEVg==" crossorigin="anonymous" referrerpolicy="no-referrer"></script>
     <script src="main.js"></script>

@@ -1,3 +1,8 @@
+// Fire will mean retiring before preservation age (60)
+// Retire will mean 60 and beyond
+
+// When communicating to user refer to FIRE as Pre-Super retirement instead for easier communication
+
 // Default graph that shows upon loading page
 const ctx = document.getElementById('myChart');
 const myChart = new Chart(ctx, {
@@ -97,7 +102,7 @@ const myChart = new Chart(ctx, {
 const form = document.querySelector('.calculator')
 const CURRENT_AGE_REQUIRED = 'Please enter your current age'
 const RETIREMENT_AGE_REQUIRED = 'Please enter your retirement age'
-const ANNUAL_SPEND_REQUIRED = 'Please enter a value greater than 0'
+const SUPER_ANNUAL_SPEND_REQUIRED = 'Please enter a value greater than 0'
 // CURRENT_ASSETS if no value, assume 0
 // MONTHLY_CONTRIBUTION if no value, assume 0
 // GROWTH_RATE if no value, assume 0
@@ -108,17 +113,17 @@ form.addEventListener('submit', function(e) {
 
   let currentAgeValid = hasValue(form.elements['current-age'], CURRENT_AGE_REQUIRED);
   let retirementAgeValid = hasValue(form.elements['retirement-age'], RETIREMENT_AGE_REQUIRED);
-  let annualSpendValid = hasValue(form.elements['annual-spend'], ANNUAL_SPEND_REQUIRED);
+  let superAnnualSpendValid = hasValue(form.elements['superAnnualSpend'], SUPER_ANNUAL_SPEND_REQUIRED);
   checkNumber(form.elements['current-super']);
   checkNumber(form.elements['monthly-contribution']);
   checkNumber(form.elements['growth-rate']);
   checkNumber(form.elements['interest-rate']);
 
-  if (currentAgeValid && retirementAgeValid && annualSpendValid) {
+  if (currentAgeValid && retirementAgeValid && superAnnualSpendValid) {
     let docObject = getData()
     updateText(docObject)
-    let [ages, plots, preSuperPlots] = createGraphData(docObject)
-    updateGraphData(myChart, ages, plots, preSuperPlots, docObject.fireNumber)
+    let [ages, plots, firePlots] = createGraphData(docObject)
+    updateGraphData(myChart, ages, plots, firePlots, docObject.superNumber)
   }
 })
 
@@ -163,31 +168,24 @@ function getData() {
   let ageDifference = form.elements['retirement-age'].value - form.elements['current-age'].value
   let growthRate = form.elements['growth-rate'].value
   let interestRate = form.elements['interest-rate'].value
-  let fireNumber = form.elements['annual-spend'].value * 25
-  let coastNumber = roundOff(fireNumber * Math.pow((1 + ((growthRate - interestRate)/100)), (-1 * ageDifference)), 2)
+  let superNumber = form.elements['superAnnualSpend'].value * 25
+  let coastNumber = roundOff(superNumber * Math.pow((1 + ((growthRate - interestRate)/100)), (-1 * ageDifference)), 2)
 
-  // Pre-Super
-  let preSuperAgeDifference = form.elements['preSuperRetirementAge'].value - form.elements['current-age'].value
-  let preSuperAnnualSpend = form.elements['preSuperAnnualSpend'].value
-  let preFireNumber = preSuperAnnualSpend * (ageDifference - preSuperAgeDifference)
+  getFireData()
 
   let docObject = {
       currentAge: form.elements['current-age'].value,
       retirementAge: form.elements['retirement-age'].value,
       ageDifference: ageDifference,
-      annualSpend: form.elements['annual-spend'].value,
+      annualSpend: form.elements['superAnnualSpend'].value,
       currentSuper: form.elements['current-super'].value,
       monthlyContribution: form.elements['monthly-contribution'].value,
       growthRate: form.elements['growth-rate'].value,
       interestRate: form.elements['interest-rate'].value,
       adjustedGrowthRate: roundOff((growthRate - interestRate), 1),
-      fireNumber: fireNumber,
+      superNumber: superNumber,
       coastNumber: coastNumber,
       actualCoastNumber: roundOff(coastNumber - form.elements['current-super'].value, 2),
-      // Pre-Super
-      preSuperAgeDifference: preSuperAgeDifference,
-      preSuperAnnualSpend: preSuperAnnualSpend,
-      preFireNumber: preFireNumber
     }
 
     return docObject
@@ -196,8 +194,8 @@ function getData() {
 
 function createGraphData(docObject) {
   let ages = []
-  let plots = [docObject.currentSuper, docObject.fireNumber]
-  let preSuperPlots = [docObject.preFireNumber]
+  let plots = [docObject.currentSuper, docObject.superNumber]
+  let firePlots = [docObject.fireNumber]
 
   for (let i = 0; i < docObject.ageDifference + 1; i++) {
       ages[i] = i + Number(docObject.currentAge)
@@ -205,7 +203,7 @@ function createGraphData(docObject) {
 
   // Right now only creates plots for the pre-super Fire number
   for (let i = 0; i < docObject.ageDifference + 1; i++) {
-    preSuperPlots[i] = Number(docObject.preFireNumber)
+    firePlots[i] = Number(docObject.fireNumber)
   }
 
   for (let i = 0; i < docObject.ageDifference + 1; i++) {
@@ -226,24 +224,24 @@ function createGraphData(docObject) {
         plots[i] = principal + annuity
       }
   }
-  return [ages, plots, preSuperPlots]
+  return [ages, plots, firePlots]
 }
 
 
-function updateGraphData(myChart, ages, plots, preSuperPlots, fireNumber) {
+function updateGraphData(myChart, ages, plots, firePlots, superNumber) {
   removeGraphData(myChart)
-  addGraphData(myChart, ages, plots, preSuperPlots, fireNumber)
+  addGraphData(myChart, ages, plots, firePlots, superNumber)
 }
 
 
-function addGraphData(chart, ages, plots, preSuperPlots, fireNumber) {
+function addGraphData(chart, ages, plots, firePlots, superNumber) {
     ages.forEach((age) => {
       chart.data.labels.push(age)
     });
     plots.forEach((plot) => {
         chart.data.datasets[0].data.push(plot)
-        chart.data.datasets[1].data.push(fireNumber)
-        chart.data.datasets[2].data.push(preSuperPlots)
+        chart.data.datasets[1].data.push(superNumber)
+        chart.data.datasets[2].data.push(firePlots)
     });
 
     chart.update();
@@ -265,21 +263,19 @@ function updateText(docObject) {
     from retirement`
    document.querySelector('.b').innerHTML = `At a real growth rate (growth - inflation)
     of ${docObject.adjustedGrowthRate}% and a planned annual spendings of
-    ${docObject.annualSpend} this makes your FIRE number:
-    ${docObject.fireNumber}`
+    ${docObject.annualSpend} this makes your Super number:
+    ${docObject.superNumber}`
    document.querySelector('.c').innerHTML = `The amount of money you need to put
-    into your Super today to reach ${ docObject.fireNumber} by age
+    into your Super today to reach ${ docObject.superNumber} by age
     ${docObject.retirementAge}, is:`
    document.querySelector('.d').innerHTML = `${ docObject.coastNumber}`
    document.querySelector('.e').innerHTML = `With a Super that's currently at
     ${docObject.currentSuper}, you've got to put in
-    ${docObject.actualCoastNumber} more today to reach your FIRE number by retirement`
+    ${docObject.actualCoastNumber} more today to reach your SUPER number by retirement`
     document.querySelector('.f').innerHTML = `Monthly contributions: ${docObject.monthlyContribution}`
     //Pre-Super
-    document.querySelector('.g').innerHTML = `You plan to take your Pre-Super retirement in 
-    ${docObject.preSuperAgeDifference} years`
-    document.querySelector('.h').innerHTML = `With a planned yearly budget of ${docObject.preSuperAnnualSpend}, your 
-    pre-Super FIRE number is ${docObject.preFireNumber}`
+    document.querySelector('.g').innerHTML = `With a planned yearly budget of ${33 * 33}, your
+     FIRE number is ${1 + 23}`
 
 }
 
@@ -287,4 +283,54 @@ function updateText(docObject) {
 function roundOff(num, places) {
   const x = Math.pow(10, places)
   return Math.round(num * x) / x
+}
+
+
+// Pre-Super stuff
+// Vars
+// Amount in Super after hit PreSuper
+//  adjustedGrowthRate
+// Current networth excluding Super and equity in home
+//  fireNumber
+// Number of pay periods towards Super
+let pv
+let fv
+let pmt
+let r
+let n
+
+
+function getFireData() {
+  // Will find out how big Super is by the time have reached FIRE
+  findSuperAmountPreSuper(findYearsTillFire(findFireNumber()))
+
+}
+
+
+function findSuperAmountPreSuper(yearsTillFire) {
+  let superAmountPreSuper = pv * Math.pow((1 * r), n) + (pmt/r) * (Math.pow((1 + r), n) - 1);
+  //  adjustedGrowthRate
+  let SUPER_GUARANTEE = 0.1 // Will increase by 0.5% till 1 July 2025
+  let ordinaryTimeEarnings = 9270.48 // Default value (Minimum hours * Weeks in a Quarter) * Standard wage = (38 * 12) * 20.33
+  // currentSuper
+  yearsTillFire
+}
+
+
+function findYearsTillFire(fireNumber) {
+  let yearsTillFire = (Math.log(1 + ((fv * r)/pmt))/Math.log(1 + r)) - (pv/pmt)
+  // adjustedGrowthRate
+  let yearlyDeposit   // Post-tax yearly savings
+  let currentNetworth
+  fireNumber
+}
+
+
+function findFireNumber() {
+  let fireNumber = (pmt/r) * (1 - (1/Math.pow((1 + r), n)))
+  // adjustedGrowthRate
+  let fireAnnualSpend = form.elements['fireAnnualSpend'].value
+  let yearsTillPreserve
+  // How find yearsTillFire for numPayPeriods if need numPayPeriods to find yearsTillFire?
+  let numPayPeriods = yearsTillPreserve - 20 // Will find alternative method to using yearsTillFire
 }
