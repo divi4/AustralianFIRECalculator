@@ -17,8 +17,10 @@ A FIRE calculator adjusted to take into account Australian superannuation
 -Found out how to define the correct locale data when using Intl object using [Unicode Technical Standard #35](https://unicode.org/reports/tr35/) as a reference  
 -Give different plotlines on the same graph different tooltips  
 -How to organise and plan a project  
+-[Single-responsibility principle](https://en.wikipedia.org/wiki/Single-responsibility_principle), that objects/classes should be only be responsible for a single part of the program  
 
 ## Things to do:   
+-Fix up Super future value calculations in createGraphData()  
 -Add calculations to determine pre-Super FIRE number  
 -Add pre-Super data to graph  
 -Take into account Employer's Super Guarantee, ask how much employers contribute to their Super on a monthly/quarterly basis  

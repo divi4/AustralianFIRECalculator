@@ -19,14 +19,15 @@
             <small></small>
           </div>
 
-          <div class="parameter">
-            <label for="retirement-age">Retirement age:</label>
-            <input type="number" name="retirement-age" value="65" placeholder="65" min="60">
+          <!-- Replace with DOB to determine preservation age -->
+          <!-- <div class="parameter">
+            <label for="preservation-age">Retirement age:</label>
+            <input type="number" name="preservation-age" value="65" placeholder="65" min="60">
             <small></small>
-          </div>
+          </div> -->
 
           <div class="parameter">
-            <label for="superAnnualSpend">Annual spending in retirement:</label>
+            <label for="superAnnualSpend">Annual spending in preservation:</label>
             <input type="number" name="superAnnualSpend" value="30000" placeholder="30000" min="1">
             <small></small>
           </div>
@@ -37,8 +38,8 @@
           </div>
 
           <div class="parameter">
-            <label for="monthly-contribution">Monthly contribution:</label>
-            <input type="number" name="monthly-contribution" value="0" placeholder="500" min="0">
+            <label for="yearly-contribution">Yearly contribution:</label>
+            <input type="number" name="yearly-contribution" value="0" placeholder="10000" min="0">
           </div>
 
           <!--Replace the growth and interest rate with range input in future-->
@@ -54,11 +55,11 @@
           </div>
 
           <!-- Alter default values to none when live -->
-          <h2>Pre-Super retirement</h2>
+          <h2>Pre-Super preservation</h2>
 
           <!-- <div class="parameter">
-            <label for="fireRetirementAge">Retirement age:</label>
-            Need min to be currentAge and max to be retirementAge
+            <label for="fireRetirementAge">Pre-Super Retirement age:</label>
+            Need min to be currentAge and max to be preservationAge
             <input type="number" name="fireRetirementAge" value="35" placeholder="35">
             <small></small>
           </div> -->
@@ -73,12 +74,6 @@
           <div class="parameter">
             <label for="currentNetworth">Current Networth, excluding Super and equity in house:</label>
             <input type="number" name="currentNetworth" value="50000" placeholder="50000" min="0">
-            <small></small>
-          </div>
-
-          <div class="parameter">
-            <label for="yearlyDeposit">Amount of yearly post-tax money will save:</label>
-            <input type="number" name="yearlyDeposit" value="30000" placeholder="30000" min="1">
             <small></small>
           </div>
 
