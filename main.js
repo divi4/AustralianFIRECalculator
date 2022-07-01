@@ -119,7 +119,7 @@ form.addEventListener('submit', function(e) {
   if (currentAgeValid && superAnnualSpendValid) {
     let superObject = getData()[0]
     let fireObject = getData()[1]
-    console.log(fireObject.superAmountPreSuper)
+
     updateText(superObject)
     let [ages, plots, firePlots] = createGraphData(superObject)
     updateGraphData(myChart, ages, plots, firePlots, superObject.superNumber)
@@ -168,7 +168,7 @@ function getData() {
   let interestRate = form.elements['interest-rate'].value
   let adjustedGrowthRate = roundOff((growthRate - interestRate), 1)
 
-  let yearlyContribution = form.elements['yearly-contribution'].value
+  let yearlyContribution = Number(form.elements['yearly-contribution'].value)
 
   let superNumber = form.elements['superAnnualSpend'].value * 25
   let currentSuper = form.elements['current-super'].value
@@ -318,9 +318,16 @@ function roundOff(num, places) {
 function getFireData(adjustedGrowthRate, yearlyContribution, currentSuper) {
   // Will find out how big Super is by the time have reached FIRE
   // Should make adjustedGrowthRate a global variable or something
-  let superAmountPreSuper = findSuperAmountPreSuper(findYearsTillFire(findFireNumber(adjustedGrowthRate), adjustedGrowthRate, yearlyContribution), adjustedGrowthRate, currentSuper)
-
-  return superAmountPreSuper
+  if (yearlyContribution !== 0) {
+    let superAmountPreSuper = findSuperAmountPreSuper(findYearsTillFire(findFireNumber(adjustedGrowthRate), adjustedGrowthRate, yearlyContribution), adjustedGrowthRate, currentSuper)
+  
+    return superAmountPreSuper
+  } else {
+    // Add logic
+    let superAmountPreSuper = 21212
+    
+    return superAmountPreSuper
+  }
 }
 
 
@@ -330,18 +337,19 @@ function findSuperAmountPreSuper(yearsTillFire, adjustedGrowthRate, currentSuper
   let ordinaryTimeEarnings = 9270.48 // Default value (Minimum hours * Weeks in a Quarter) * Standard wage = (38 * 12) * 20.33
   // currentSuper
 
-  let superAmountPreSuper = currentSuper * Math.pow((1 * adjustedGrowthRate), yearsTillFire) + (((ordinaryTimeEarnings * SUPER_GUARANTEE)/adjustedGrowthRate) * (Math.pow((1 + adjustedGrowthRate), yearsTillFire) - 1));
+  // Super guarantee formula is different
+  let superAmountPreSuper = currentSuper * Math.pow((1 * (adjustedGrowthRate/100)), yearsTillFire) + ((((ordinaryTimeEarnings * SUPER_GUARANTEE) * 4)/(adjustedGrowthRate/100)) * (Math.pow((1 + (adjustedGrowthRate/100)), yearsTillFire) - 1));
+  // Answer is quite a bit off
   console.log('superAmountPreSuper: ' + superAmountPreSuper)
   return superAmountPreSuper
 }
 
 
 function findYearsTillFire(fireNumber, adjustedGrowthRate, yearlyContribution) {
-  let currentNetworth = form.elements['currentNetworth'].value
-  // adjustedGrowthRate
-  // yearlyContributions   // Post-tax yearly savings
+  let currentNetworth = Number(form.elements['currentNetworth'].value)
 
-  let yearsTillFire = (Math.log(1 + ((fireNumber * adjustedGrowthRate)/yearlyContribution))/Math.log(1 + adjustedGrowthRate)) - (currentNetworth/yearlyContribution)
+  let yearsTillFire = (Math.log(1 + ((fireNumber * (adjustedGrowthRate/100))/yearlyContribution))/Math.log(1 + (adjustedGrowthRate/100))) - (currentNetworth/yearlyContribution)
+  // For default values within about 0.57 of what believe to be the answer 
   console.log('yearsTillFire: ' + yearsTillFire)
   return yearsTillFire
 }
@@ -349,14 +357,15 @@ function findYearsTillFire(fireNumber, adjustedGrowthRate, yearlyContribution) {
 
 function findFireNumber(adjustedGrowthRate) {
   // adjustedGrowthRate
-  let fireAnnualSpend = form.elements['fireAnnualSpend'].value
-  let yearsTillPreserve = (60 - form.elements['current-age'])
+  let fireAnnualSpend = Number(form.elements['fireAnnualSpend'].value)
+  let yearsTillPreserve = (60 - form.elements['current-age'].value)
   // How find yearsTillFire for numPayPeriods if need numPayPeriods to find yearsTillFire?
   // let numPayPeriods = yearsTillPreserve - yearsTillFire  -Will find alternative method to using yearsTillFire
   // Use yearsTillPreserve for now, will be about +- 1 of numPayPeriods
 
-  let fireNumber = (fireAnnualSpend/adjustedGrowthRate) * (1 - (1/Math.pow((1 + adjustedGrowthRate), yearsTillPreserve)))
-  // Work out why coming out as NaN
-  console.log('fireNumber: ' + fireNumber)
+  // Answer is right if asking about today when pass yearsTillPreserve as argument for number of pay periods
+  // Need to take into account currentNetworth too, done by reducing numPayPeriods
+  let fireNumber = (fireAnnualSpend/(adjustedGrowthRate/100)) * (1 - (1/Math.pow((1 + (adjustedGrowthRate/100)), 13)))
+
   return fireNumber
 }

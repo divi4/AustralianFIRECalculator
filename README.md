@@ -20,6 +20,8 @@ A FIRE calculator adjusted to take into account Australian superannuation
 -[Single-responsibility principle](https://en.wikipedia.org/wiki/Single-responsibility_principle), that objects/classes should be only be responsible for a single part of the program  
 
 ## Things to do:   
+-Correct the future value of annuity formula in findSuperAmountPreSuper()  
+-Replace hardcode in findFireNumber()  
 -Fix up Super future value calculations in createGraphData()  
 -Add calculations to determine pre-Super FIRE number  
 -Add pre-Super data to graph  
