@@ -364,7 +364,8 @@ function findFireNumber(adjustedGrowthRate) {
   // Use yearsTillPreserve for now, will be about +- 1 of numPayPeriods
 
   // Answer is right if asking about today when pass yearsTillPreserve as argument for number of pay periods
-  // Need to take into account currentNetworth too, done by reducing numPayPeriods
+  // Need to take into account currentNetworth too, done by reducing numPayPeriods with currentNetworth in a 
+  // future value of annuity table
   let fireNumber = (fireAnnualSpend/(adjustedGrowthRate/100)) * (1 - (1/Math.pow((1 + (adjustedGrowthRate/100)), 13)))
 
   return fireNumber
